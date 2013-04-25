@@ -1,0 +1,47 @@
+extends ../layout
+
+mixin menu-item(name)
+  div
+    .menu-item(attributes)= name
+
+mixin controls(controlKeys)
+  - var controlNames = ['Turn Right', 'Turn Left', 'Accelerate', 'Brake'];
+  table
+    each key, i in controlKeys
+      tr
+        td= controlNames[i] + ":"
+        td= key
+
+block content
+  .menus
+    .title Racing Bouncing League
+    .menu.main-menu
+      +menu-item('Play Game').play-btn
+      +menu-item('Help').help-btn
+      +menu-item('Credits').credits-btn
+      +menu-item('Exit').exit-btn
+
+    .menu.credits-menu
+      .title Credits
+      .credits-box
+        span.by Created by
+        span.creator
+          a(href='http://www.dallinosmun.com') Dallin Osmun
+      +menu-item('Back').back-btn
+
+    .menu.help-menu
+      .title Help
+      .control-set
+        .subtitle Control Set 1
+        +controls(['D', 'A', 'W', 'S'])
+      .control-set
+        .subtitle Control Set 2
+        +controls(['Right Arrow', 'Left Arrow', 'Up Arrow', 'Down Arrow'])
+      +menu-item('Back').back-btn
+
+  .game
+    .title Level 
+      span.levelNum 1
+    .canvas-container
+      canvas(width=900, height=500)#game
+    .timers
